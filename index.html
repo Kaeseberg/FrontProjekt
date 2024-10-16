@@ -101,6 +101,7 @@
             alert('' + nameAktuell + alterAktuell + genderAktuell + gehaltAktuell + cityAktuell);
 
             const newUl = document.createElement('ul');
+            newUl.classList.add('updated');
             document.querySelector('.output').appendChild(newUl)
             for (let k = 1; k <= 7; k++) {
                 let newLi = document.createElement('li');
