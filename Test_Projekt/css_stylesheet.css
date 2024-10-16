@@ -92,3 +92,29 @@ ul.updated li:last-child:hover {
     background-color: gainsboro;
 
 }
+
+div.advertisement {
+    border-color: black;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: beige;
+    position: fixed;
+    width: 600px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.countdown {
+    display: inline-block;
+    height: 40px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: black;
+    line-height: 40px;
+    justify-content: center;
+
+}
