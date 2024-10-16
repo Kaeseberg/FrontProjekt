@@ -1,0 +1,88 @@
+.title1 {
+    width: 400px;
+    margin: 30px auto;
+    position: relative;
+    text-align: center;
+
+}
+
+h4 {
+    display: inline-block;
+    margin: auto;
+    font-size: larger;
+}
+
+div.input {
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 900px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+}
+
+input {
+    width: 80px;
+    height: 20px;
+    margin-right: 10px
+}
+
+select {
+    width: 80px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+input[type="submit"] {
+    border-radius: 5px;
+    margin-right: 0px;
+    color: aliceblue;
+    background-color: rgb(65, 126, 175);
+}
+
+div.title2 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    margin-top: 50px;
+    text-align: center;
+
+}
+
+div.output {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 900px;
+}
+
+ul {
+    margin: auto;
+    list-style-type: none;
+    display: flex;
+    width: 900px;
+}
+
+li[data-liste].caption {
+    height: 40px;
+    width: 105px;
+    border: 1px;
+    border-color: rgb(199, 198, 244);
+    border-style: solid;
+    line-height: 40px;
+    text-align: center;
+    color: rgb(29, 99, 165);
+    background-color: rgb(206, 222, 251);
+}
+
+li.items {
+    height: 40px;
+    width: 105px;
+    border: 1px;
+    border-color: rgb(199, 198, 244);
+    border-style: solid;
+    line-height: 40px;
+    text-align: center;
+}

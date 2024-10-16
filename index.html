@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css_stylesheet.css">
+</head>
+
+<body>
+
+
+    <div class="title1">
+        <h4><strong>Schüler Hinzufügen</strong></h4>
+    </div>
+    <div class="input">
+        <form action="">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" pattern="[A-Za-zÄäÖöÜüß\s]+" title="Der Name darf keine Zahlen enthalten."
+                required>
+            <label for="alter">Alter:</label>
+            <input type="number" id="alter" min="1" max="99" required>
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender" required>
+                <option value="männlich">männlich</option>
+                <option value="weiblich">weiblich</option>
+                <option value="divers">divers</option>
+                <option value="helicopter">helicopter</option>
+            </select>
+            <label for="gehalt">Gehalt:</label>
+            <input type="number" id="gehalt" required>
+            <label for="city">Arbeitsort:</label>
+            <select name="city" id="city" required>
+                <option value="Hamburg">Hamburg</option>
+                <option value="Berlin">Berlin</option>
+                <option value="Frankfurt">Frankfurt</option>
+                <option value="Stuttgart">Stuttgart</option>
+                <option value="andere">andere</option>
+            </select>
+            <input type="submit">
+        </form>
+
+    </div>
+
+
+    <div class="title2">
+        <h4><strong>Liste der Angestellten</strong></h4>
+    </div>
+
+    <div class="output">
+        <ul>
+            <li class="caption" data-liste="number">Matrikel-Nr</li>
+            <li class="caption" data-liste="name">Name</li>
+            <li class="caption" data-liste="alter">Alter</li>
+            <li class="caption" data-liste="gender">Gender</li>
+            <li class="caption" data-liste="gehalt">Gehalt</li>
+            <li class="caption" data-liste="city">Arbeitsort</li>
+            <li class="caption" data-liste="option">Operation</li>
+        </ul>
+
+    </div>
+
+
+
+
+
+    <script>
+        const myForm = document.querySelector('form');
+        let counter = 0;
+
+
+        myForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+            counter = counter + 1;
+
+            const name = document.getElementById('name');
+            const alter = document.getElementById('alter');
+            const gender = document.getElementById('gender');
+            const gehalt = document.getElementById('gehalt');
+            const city = document.getElementById('city');
+
+            const nameAktuell = name.value;
+            const alterAktuell = alter.value;
+            const genderAktuell = gender.value;
+            const gehaltAktuell = gehalt.value;
+            const cityAktuell = city.value;
+
+
+
+            name.value = "";
+            alter.value = "";
+            gender.value = "";
+            gehalt.value = "";
+            city.value = "";
+
+            alert('' + nameAktuell + alterAktuell + genderAktuell + gehaltAktuell + cityAktuell);
+
+            const newUl = document.createElement('ul');
+            document.querySelector('.output').appendChild(newUl)
+            for (let k = 1; k <= 7; k++) {
+                let newLi = document.createElement('li');
+                newLi.classList.add('items')
+                newUl.appendChild(newLi);
+            }
+
+            newUl.children[0].innerHTML = `${counter}`;
+            newUl.children[1].innerHTML = `${nameAktuell}`;
+            newUl.children[2].innerHTML = `${alterAktuell}`;
+            newUl.children[3].innerHTML = `${genderAktuell}`;
+            newUl.children[4].innerHTML = `${gehaltAktuell}`;
+            newUl.children[5].innerHTML = `${cityAktuell}`;
+            newUl.children[6].innerHTML = '<u style="color: red;">löschen</u>';
+
+            newUl.children[6].addEventListener('click', function (e) {
+                newUl.children[6].parentNode.parentNode.removeChild(newUl.children[6].parentNode);
+
+            })
+        });
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
