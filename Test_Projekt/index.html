@@ -79,12 +79,64 @@
 
     <script>
         const myForm = document.querySelector('form');
-        let counter = 0;
+        let counter;
+        let numOfItem;
 
+        if (Boolean(localStorage.getItem('numOfItem'))) {
+
+            counter = Number.parseInt(localStorage.getItem('counter'))
+            numOfItem = Number.parseInt(localStorage.getItem('numOfItem'));
+            let numOfNewCreatedItem = 0;
+
+            while (numOfNewCreatedItem < counter) {
+
+                numOfNewCreatedItem = numOfNewCreatedItem + 1;
+
+                if (localStorage.getItem(`obj${numOfNewCreatedItem}`)) {
+                    const newUl = document.createElement('ul');
+                    newUl.classList.add('updated');
+                    document.querySelector('.output').appendChild(newUl)
+                    for (let k = 1; k <= 7; k++) {
+                        let newLi = document.createElement('li');
+                        newLi.classList.add('items')
+                        newUl.appendChild(newLi);
+                    }
+
+                    newUl.children[0].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objCounter;
+                    newUl.children[1].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objName;
+                    newUl.children[2].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objAlter;
+                    newUl.children[3].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objGender;
+                    newUl.children[4].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objGehalt;
+                    newUl.children[5].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objCity;
+                    newUl.children[6].innerHTML = JSON.parse(localStorage.getItem(`obj${numOfNewCreatedItem}`)).objButton;
+
+
+                    newUl.children[6].addEventListener('click', function (e) {
+                        newUl.children[6].parentNode.parentNode.removeChild(newUl.children[6].parentNode);
+                        numOfItem = numOfItem - 1;
+                        localStorage.setItem('numOfItem', numOfItem);
+                    })
+                }
+            }
+        } else {
+            counter = 0;
+            numOfItem = 0;
+        }
 
         myForm.addEventListener('submit', function (event) {
             event.preventDefault();
+
+            if (Boolean(localStorage.getItem('numOfItem') && Boolean(localStorage.getItem('counter')))) {
+                counter = Number.parseInt(localStorage.getItem('counter'));
+                numOfItem = Number.parseInt(localStorage.getItem('numOfItem'));
+            } else {
+                counter = 0;
+                numOfItem = 0;
+            };
+
             counter = counter + 1;
+            numOfItem = numOfItem + 1;
+
 
             const name = document.getElementById('name');
             const alter = document.getElementById('alter');
@@ -98,6 +150,21 @@
             const gehaltAktuell = gehalt.value;
             const cityAktuell = city.value;
 
+            const obj = new Object();
+            obj.objCounter = counter;
+            obj.objName = nameAktuell;
+            obj.objAlter = alterAktuell;
+            obj.objGender = genderAktuell;
+            obj.objGehalt = gehaltAktuell;
+            obj.objCity = cityAktuell;
+            obj.objButton = '<u style="color: red;">löschen</u>';
+
+            const objJSON = JSON.stringify(obj);
+            localStorage.setItem(`obj${counter}`, objJSON);
+
+            localStorage.setItem('counter', counter);
+            localStorage.setItem('numOfItem', numOfItem);
+
 
 
             name.value = "";
@@ -106,9 +173,12 @@
             gehalt.value = "";
             city.value = "";
 
-            alert('' + nameAktuell + alterAktuell + genderAktuell + gehaltAktuell + cityAktuell);
+            // alert('' + nameAktuell + alterAktuell + genderAktuell + gehaltAktuell + cityAktuell);
 
             const newUl = document.createElement('ul');
+            newUl.dataset.myid = JSON.parse(localStorage.getItem(`obj${counter}`)).objCounter;
+
+
             newUl.classList.add('updated');
             document.querySelector('.output').appendChild(newUl)
             for (let k = 1; k <= 7; k++) {
@@ -117,22 +187,37 @@
                 newUl.appendChild(newLi);
             }
 
-            newUl.children[0].innerHTML = `${counter}`;
+            newUl.children[0].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objCounter;
+            newUl.children[1].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objName;
+            newUl.children[2].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objAlter;
+            newUl.children[3].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objGender;
+            newUl.children[4].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objGehalt;
+            newUl.children[5].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objCity;
+            newUl.children[6].innerHTML = JSON.parse(localStorage.getItem(`obj${counter}`)).objButton;
+
+            /* newUl.children[0].innerHTML = `${counter}`;
             newUl.children[1].innerHTML = `${nameAktuell}`;
             newUl.children[2].innerHTML = `${alterAktuell}`;
             newUl.children[3].innerHTML = `${genderAktuell}`;
             newUl.children[4].innerHTML = `${gehaltAktuell}`;
             newUl.children[5].innerHTML = `${cityAktuell}`;
-            newUl.children[6].innerHTML = '<u style="color: red;">löschen</u>';
+            newUl.children[6].innerHTML = '<u style="color: red;">löschen</u>'; */
+
 
             newUl.children[6].addEventListener('click', function (e) {
+                const myCounter = this.parentNode.dataset.myid;
                 newUl.children[6].parentNode.parentNode.removeChild(newUl.children[6].parentNode);
 
+                numOfItem = Number.parseInt(localStorage.getItem('numOfItem')) - 1;
+                localStorage.setItem('numOfItem', numOfItem);
+                localStorage.removeItem(`obj${myCounter}`);
             })
         });
 
 
 
+
+        //Modul der Werbung
         const advertisement = document.querySelector('.advertisement');
         const timer = setTimeout(function (event) {
             advertisement.parentNode.removeChild(advertisement);
@@ -147,6 +232,8 @@
             countdownNum = countdownNum - 1;
             countdown.innerHTML = `Die Werbung schließt in ${countdownNum} Sekunden`
         }, 1000);
+
+
 
 
 
